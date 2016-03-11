@@ -10,3 +10,7 @@ export PATH=~/packer_0.8.6_darwin_amd64:$PATH
 * packer build -only=virtualbox-iso oracle-linux-6.6-x86_64.json
 * packer build -only=vmware-iso oracle-linux-6.6-x86_64.json
 * packer build -only=qemu oracle-linux-6.6-x86_64.json
+
+
+## Qemu on mac osx
+- brew install qemu
