@@ -75,11 +75,11 @@
   {
     "vm_name": "{{user `vm_name`}}",
     "type": "qemu",
-    "headless": false,
+    "headless": true,
 
     "accelerator": "none",
     "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks_cloud_centos.cfg<enter><wait>"
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL6_6-x86_64/ks.cfg<enter><wait>"
     ],
 
     "disk_interface": "virtio",
@@ -97,18 +97,9 @@
 
     "net_device": "virtio-net",
     "qemuargs": [
-        [
-            "-m",
-            "1024M"
-        ],
-        [
-            "-machine",
-            "type=pc"
-        ],
-        [
-            "-device",
-            "virtio-net-pci,netdev=user.0"
-        ]
+        ["-m","1024M"],
+        ["-machine", "type=pc"],
+        ["-device","virtio-net-pci,netdev=user.0"]
     ],
     "shutdown_command": "shutdown -P now",
     "ssh_username": "root",
