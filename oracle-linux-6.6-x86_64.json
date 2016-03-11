@@ -148,10 +148,10 @@
       "only": ["virtualbox-iso", "vmware-iso"]
     },
     {
-      "output": "build/{{user `vm_name`}}-x86_64-{{.Provider}}.tar.gz",
+      "output": "build/{{user `vm_name`}}-x86_64-cloud.tar.gz",
       "type": "compress",
       "compression_level": 6,
-      "keep_input_artifact": true,
+      "keep_input_artifact": false,
       "only": ["qemu"]
     }
   ]
