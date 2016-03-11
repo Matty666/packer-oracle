@@ -13,4 +13,4 @@ export PATH=~/packer_0.8.6_darwin_amd64:$PATH
 
 
 ## Qemu on mac osx
-- brew install qemu
+- brew install qemu --with-sdl

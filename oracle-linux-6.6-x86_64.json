@@ -75,7 +75,7 @@
   {
     "vm_name": "{{user `vm_name`}}",
     "type": "qemu",
-    "headless": true,
+    "headless": false,
 
     "accelerator": "none",
     "boot_command": [
