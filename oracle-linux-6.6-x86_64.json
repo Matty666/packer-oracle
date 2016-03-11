@@ -79,7 +79,7 @@
 
     "accelerator": "none",
     "boot_command": [
-      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL6_6-x86_64/ks.cfg<enter><wait>"
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL6_6-x86_64/ks_cloud.cfg<enter><wait>"
     ],
 
     "disk_interface": "virtio",
