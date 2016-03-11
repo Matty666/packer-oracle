@@ -101,7 +101,7 @@
         ["-machine", "type=pc"],
         ["-device","virtio-net-pci,netdev=user.0"]
     ],
-    "shutdown_command": "shutdown -P now",
+    "shutdown_command": "/sbin/halt -h -p",
     "ssh_username": "root",
     "ssh_password": "root",
     "ssh_wait_timeout": "10000s",
