@@ -134,20 +134,25 @@
   {
     "type": "shell",
     "inline": [
-      "mkdir /etc/opc-compute"
-    ]
+      "mkdir /etc/opc-compute",
+      "mkdir -p /var/log/opc-compute",
+      "useradd opc"
+    ],
+    "only": ["qemu"]
   },
   {
     "type": "file",
     "source": "upload/opc-init.sh",
-    "destination": "/etc/opc-compute/opc-init.sh"
+    "destination": "/etc/opc-compute/opc-init.sh",
+    "only": ["qemu"]
   },
   {
     "type": "shell",
     "inline": [
       "chmod +x /etc/opc-compute/opc-init.sh",
       "echo 'su root /etc/opc-compute/opc-init.sh' >> /etc/rc.d/rc.local"
-    ]
+    ],
+    "only": ["qemu"]
   },
   {
     "type": "shell",
