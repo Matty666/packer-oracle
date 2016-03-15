@@ -104,7 +104,7 @@
     "shutdown_command": "/sbin/halt -h -p",
     "ssh_username": "root",
     "ssh_password": "root",
-    "ssh_wait_timeout": "10000s",
+    "ssh_wait_timeout": "30000s",
     "ssh_host_port_max": 2229,
     "ssh_host_port_min": 2222,
     "ssh_port": 22
@@ -136,7 +136,8 @@
     "inline": [
       "mkdir /etc/opc-compute",
       "mkdir -p /var/log/opc-compute",
-      "useradd opc"
+      "useradd opc",
+      "echo \"opc        ALL=(ALL)       NOPASSWD: ALL\" >> /etc/sudoers"
     ],
     "only": ["qemu"]
   },
