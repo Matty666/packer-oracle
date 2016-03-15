@@ -133,6 +133,24 @@
   },
   {
     "type": "shell",
+    "inline": [
+      "mkdir /etc/opc-compute"
+    ]
+  },
+  {
+    "type": "file",
+    "source": "upload/opc-init.sh",
+    "destination": "/etc/opc-compute/opc-init.sh"
+  },
+  {
+    "type": "shell",
+    "inline": [
+      "chmod +x /etc/opc-compute/opc-init.sh",
+      "echo 'su root /etc/opc-compute/opc-init.sh' >> /etc/rc.d/rc.local"
+    ]
+  },
+  {
+    "type": "shell",
     "scripts": [
       "scripts/rhel_6_x_network.sh",
       "scripts/compact.sh"
