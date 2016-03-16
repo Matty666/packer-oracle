@@ -158,8 +158,16 @@
   {
     "type": "shell",
     "scripts": [
-      "scripts/rhel_6_x_network.sh",
+      "scripts/rhel_7_x_network.sh",
       "scripts/compact.sh"
+    ],
+    "only": ["qemu"]
+  },
+  {
+    "type": "shell",
+    "inline": [
+      "passwd -d root",
+      "passwd -l root"
     ],
     "only": ["qemu"]
   }
