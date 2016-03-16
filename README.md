@@ -10,6 +10,7 @@ For OPC you should use Qemu emulator and this will make
 - sudo rights for opc
 - key inject script
 - tar.gz as export
+- delete password & disable root
 
 Follow the Oracle Cloud docs for uploading the image and to associate it. After that follow the normal flow
 
@@ -40,3 +41,41 @@ For OEL7.2 with UEK4 Choose one
 
 ##Qemu installation for mac osx
 - brew install qemu --with-sdl
+
+##Qemu packer on a linux VM
+
+###Init
+- vagrant init phusion/ubuntu-14.04-amd64
+- enable nested x86 support like this in vmware 'vb.vmx["vhv.enable"] = "TRUE"'
+- vagrant up
+
+###Install
+
+- Download packer and add it to the root/vagrant folder
+- Download OEL ISO and add it to the root/vagrant folder
+
+```bash
+vagrant ssh
+sudo apt-get install qemu-kvm qemu virt-manager virt-viewer libvirt-bin
+egrep -c '(vmx|svm)' /proc/cpuinfo
+kvm-ok
+cd /vagrant
+sudo apt-get install git
+git clone https://github.com/biemond/packer-oracle.git
+sudo apt-get install unzip
+unzip packer_0.10.0_linux_amd64.zip
+```
+
+###Build
+Update OEL 6 qemu config
+- update iso_location to /vagrant
+- headless true instead of false
+- accelerator kvm instead of none
+- update ["-machine", "type=pc"] -> ["-machine", "type=pc,accel=kvm"]
+
+```bash
+cd packer-oracle/
+sudo /vagrant/packer build -only=qemu oracle-linux-6.6-x86_64.json
+```
+
+- move build output file to /vagrant and you can use it
