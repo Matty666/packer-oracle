@@ -25,13 +25,17 @@ Download [Packer](http://packer.io) (tested with Packer version 0.8.6)
 - extract packer in your home folder.
 - export PATH=~/packer_0.8.6_darwin_amd64:$PATH
 
-Choose one
+For OEL6.6 Choose one
 - packer build -only=virtualbox-iso oracle-linux-6.6-x86_64.json
 	- This also requires virtualbox
 - packer build -only=vmware-iso oracle-linux-6.6-x86_64.json
 	- This also requires vmware fusion or workstation
 - packer build -only=qemu oracle-linux-6.6-x86_64.json
 	- Requires Qemu for linux or for mac
+
+For OEL7.2 with UEK4 Choose one
+- packer build -only=virtualbox-iso oracle-linux-7.2-x86_64.json
+- packer build -only=vmware-iso oracle-linux-7.2-x86_64.json
 
 ##Qemu installation for mac osx
 - brew install qemu --with-sdl
