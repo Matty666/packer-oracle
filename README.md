@@ -15,7 +15,7 @@ For OPC you should use Qemu emulator and this will make
 Follow the Oracle Cloud docs for uploading the image and to associate it. After that follow the normal flow
 
 
-For now qemu is a bit slow ( can take a few hours ) because I cannot use the kvm accelerator on my mac ( for now it only works on linux and not inside a vm)
+For now qemu is a bit slow ( can take a few hours ) because I cannot use the kvm accelerator on my mac. It only works fast on linux host or vm)
 
 ##Software
 Download [Packer](http://packer.io) (tested with Packer version 0.8.6)
