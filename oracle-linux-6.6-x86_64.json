@@ -162,6 +162,14 @@
       "scripts/compact.sh"
     ],
     "only": ["qemu"]
+  },
+  {
+    "type": "shell",
+    "inline": [
+      "passwd -d root",
+      "passwd -l root"
+    ],
+    "only": ["qemu"]
   }
   ],
   "post-processors": [
