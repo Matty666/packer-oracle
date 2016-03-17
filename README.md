@@ -34,6 +34,13 @@ For OEL6.6 Choose one
 - packer build -only=qemu oracle-linux-6.6-x86_64.json
 	- Requires Qemu for linux or for mac
 
+For OEL6.7 with UEK4 Choose one
+- packer build -only=virtualbox-iso oracle-linux-6.7-x86_64.json
+- packer build -only=vmware-iso oracle-linux-6.7-x86_64.json
+
+For OEL6.7 with UEK3 for the OPC (UEK4 does not work)
+- packer build -only=qemu oracle-linux-6.7-x86_64.json
+
 For OEL7.2 with UEK4 Choose one
 - packer build -only=virtualbox-iso oracle-linux-7.2-x86_64.json
 - packer build -only=vmware-iso oracle-linux-7.2-x86_64.json

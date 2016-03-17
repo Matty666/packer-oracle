@@ -1,0 +1,190 @@
+{
+  "variables": {
+    "iso_location": "/Users/edwin/Downloads",
+    "harddisk_size": "80960",
+    "vm_name": "OEL6_7"
+  },
+  "builders": [{
+    "vm_name": "{{user `vm_name`}}",
+    "type": "virtualbox-iso",
+    "headless": false,
+
+    "guest_os_type": "Oracle_64",
+
+    "hard_drive_interface": "sata",
+    "disk_size": "{{user `harddisk_size`}}",
+
+    "iso_url": "{{user `iso_location`}}/V77197-01.iso",
+    "iso_checksum": "DD7231B378F23E2E846AC78B0C5D8974A23631D5",
+    "iso_checksum_type": "sha1",
+
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL6_7-x86_64/ks.cfg<enter><wait>"
+    ],
+    "boot_wait": "12s",
+
+    "http_directory": "http",
+
+    "virtualbox_version_file": "/tmp/.vbox_version",
+    "guest_additions_path": "/tmp/VBoxGuestAdditions_{{.Version}}.iso",
+
+    "ssh_username": "root",
+    "ssh_password": "root",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+
+    "vboxmanage": [
+      ["modifyvm", "{{.Name}}", "--memory", "1024"],
+      ["modifyvm", "{{.Name}}", "--cpus", "1"]
+    ],
+
+    "shutdown_command": "/sbin/halt -h -p"
+  },
+  {
+    "type": "vmware-iso",
+    "headless": false,
+
+    "disk_size": "{{user `harddisk_size`}}",
+
+    "iso_url": "{{user `iso_location`}}/V77197-01.iso",
+    "iso_checksum": "DD7231B378F23E2E846AC78B0C5D8974A23631D5",
+    "iso_checksum_type": "sha1",
+
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL6_7-x86_64/ks.cfg<enter><wait>"
+    ],
+    "boot_wait": "12s",
+
+    "http_directory": "http",
+
+    "tools_upload_flavor": "linux",
+    "tools_upload_path": "/tmp/linux.iso",
+
+    "ssh_username": "root",
+    "ssh_password": "root",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+
+    "vmx_data": {
+        "memsize": "1024",
+        "numvcpus": "1",
+        "vhv.enable": "TRUE"
+    },
+    "shutdown_command": "/sbin/halt -h -p"
+  },
+  {
+    "vm_name": "{{user `vm_name`}}",
+    "type": "qemu",
+    "headless": false,
+
+    "accelerator": "none",
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL6_7-x86_64/ks_cloud.cfg<enter><wait>"
+    ],
+
+    "disk_interface": "virtio",
+    "disk_size": 8000,
+
+    "format": "raw",
+
+    "http_directory": "http",
+    "http_port_max": 10089,
+    "http_port_min": 10082,
+
+    "iso_url": "{{user `iso_location`}}/V77197-01.iso",
+    "iso_checksum": "DD7231B378F23E2E846AC78B0C5D8974A23631D5",
+    "iso_checksum_type": "sha1",
+
+    "net_device": "virtio-net",
+    "qemuargs": [
+        ["-m","1024M"],
+        ["-machine", "type=pc"],
+        ["-device","virtio-net-pci,netdev=user.0"]
+    ],
+    "shutdown_command": "/sbin/halt -h -p",
+    "ssh_username": "root",
+    "ssh_password": "root",
+    "ssh_wait_timeout": "30000s",
+    "ssh_host_port_max": 2229,
+    "ssh_host_port_min": 2222,
+    "ssh_port": 22
+  }
+  ],
+  "provisioners": [
+  {
+    "type": "shell",
+    "scripts": [
+      "scripts/vagrant.sh",
+      "scripts/vboxguest.sh",
+      "scripts/rhel_6_x_network.sh",
+      "scripts/compact.sh"
+    ],
+    "override": {
+      "vmware-iso": {
+        "scripts": [
+          "scripts/vagrant.sh",
+          "scripts/rhel_7_x_vmtools.sh",
+          "scripts/rhel_6_x_network.sh",
+          "scripts/compact.sh"
+         ]
+       }
+    },
+    "only": ["virtualbox-iso", "vmware-iso"]
+  },
+  {
+    "type": "shell",
+    "inline": [
+      "mkdir /etc/opc-compute",
+      "mkdir -p /var/log/opc-compute",
+      "useradd opc",
+      "echo \"opc        ALL=(ALL)       NOPASSWD: ALL\" >> /etc/sudoers"
+    ],
+    "only": ["qemu"]
+  },
+  {
+    "type": "file",
+    "source": "upload/opc-init.sh",
+    "destination": "/etc/opc-compute/opc-init.sh",
+    "only": ["qemu"]
+  },
+  {
+    "type": "shell",
+    "inline": [
+      "chmod +x /etc/opc-compute/opc-init.sh",
+      "echo 'su root /etc/opc-compute/opc-init.sh' >> /etc/rc.d/rc.local"
+    ],
+    "only": ["qemu"]
+  },
+  {
+    "type": "shell",
+    "scripts": [
+      "scripts/rhel_6_x_network.sh",
+      "scripts/compact.sh"
+    ],
+    "only": ["qemu"]
+  },
+  {
+    "type": "shell",
+    "inline": [
+      "passwd -d root",
+      "passwd -l root"
+    ],
+    "only": ["qemu"]
+  }
+  ],
+  "post-processors": [
+    {
+      "output": "build/{{user `vm_name`}}-x86_64-{{.Provider}}.box",
+      "compression_level": 6,
+      "type": "vagrant",
+      "only": ["virtualbox-iso", "vmware-iso"]
+    },
+    {
+      "output": "build/{{user `vm_name`}}-x86_64-cloud.tar.gz",
+      "type": "compress",
+      "compression_level": 6,
+      "keep_input_artifact": false,
+      "only": ["qemu"]
+    }
+  ]
+}
