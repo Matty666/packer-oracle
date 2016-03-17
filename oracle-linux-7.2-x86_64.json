@@ -19,7 +19,7 @@
     "iso_checksum_type": "MD5",
 
     "boot_command": [
-      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_2-x86_64/ks.cfg<enter><wait>"
+      "<tab> net.ifnames=0 biosdevname=0 text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_2-x86_64/ks.cfg<enter><wait>"
     ],
     "boot_wait": "12s",
 
@@ -51,7 +51,7 @@
     "iso_checksum_type": "MD5",
 
     "boot_command": [
-      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_2-x86_64/ks.cfg<enter><wait>"
+      "<tab> net.ifnames=0 biosdevname=0 text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_2-x86_64/ks.cfg<enter><wait>"
     ],
     "boot_wait": "12s",
 
@@ -79,7 +79,7 @@
 
     "accelerator": "none",
     "boot_command": [
-      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_2-x86_64/ks_cloud.cfg<enter><wait>"
+      "<tab> net.ifnames=0 biosdevname=0 text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/OEL7_2-x86_64/ks_cloud.cfg<enter><wait>"
     ],
 
     "disk_interface": "virtio",
