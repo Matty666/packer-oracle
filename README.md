@@ -81,11 +81,10 @@ unzip packer_0.10.0_linux_amd64.zip
 For OEL 7
 ```bash
 vagrant ssh
+sudo -i
 yum -y install qemu-kvm libvirt virt-install bridge-utils
 egrep -c '(vmx|svm)' /proc/cpuinfo
 lsmod | grep kvm
-systemctl start libvirtd
-systemctl enable libvirtd
 ```
 
 ###Build
