@@ -93,6 +93,7 @@ Update OEL 6 qemu config
 - headless true instead of false
 - accelerator kvm instead of none
 - update ["-machine", "type=pc"] -> ["-machine", "type=pc,accel=kvm"]
+- For RHEL7 add "qemu_binary" : "/usr/libexec/qemu-kvm" to the Qemu packer definition
 
 ```bash
 cd packer-oracle/
