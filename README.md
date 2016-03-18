@@ -55,7 +55,7 @@ Not supported on OPC
 
 ###Init
 - vagrant init phusion/ubuntu-14.04-amd64
-- enable nested x86 support like this in vmware 'vb.vmx["vhv.enable"] = "TRUE"'
+- enable nested x86 support like this in vmware vb.vmx["vhv.enable"] = "TRUE" or in virtualbox vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
 - vagrant up
 
 ###Install
