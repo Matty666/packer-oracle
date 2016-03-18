@@ -55,7 +55,9 @@ Not supported on OPC
 
 ###Init
 - vagrant init phusion/ubuntu-14.04-amd64
-- enable nested x86 support like this in vmware vb.vmx["vhv.enable"] = "TRUE" or in virtualbox vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
+- enable nested x86 support ( also in the bios of your computer )
+	- in vmware vb.vmx["vhv.enable"] = "TRUE"
+	- Virtualbox does not pass on vmx but you can try to set this in VBOX 5 vb.customize ["modifyvm", :id, "--hwvirtex", "on"] and vb.customize ['modifyvm', :id, '--paravirtprovider', 'kvm']
 - vagrant up
 
 ###Install
@@ -63,6 +65,7 @@ Not supported on OPC
 - Download packer and add it to the root/vagrant folder
 - Download OEL ISO and add it to the root/vagrant folder
 
+For ubuntu
 ```bash
 vagrant ssh
 sudo apt-get install qemu-kvm qemu virt-manager virt-viewer libvirt-bin
@@ -73,6 +76,16 @@ sudo apt-get install git
 git clone https://github.com/biemond/packer-oracle.git
 sudo apt-get install unzip
 unzip packer_0.10.0_linux_amd64.zip
+```
+
+For OEL 7
+```bash
+vagrant ssh
+yum -y install qemu-kvm libvirt virt-install bridge-utils
+egrep -c '(vmx|svm)' /proc/cpuinfo
+lsmod | grep kvm
+systemctl start libvirtd
+systemctl enable libvirtd
 ```
 
 ###Build
