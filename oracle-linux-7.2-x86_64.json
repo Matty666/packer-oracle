@@ -151,13 +151,16 @@
     "type": "shell",
     "inline": [
       "chmod +x /etc/opc-compute/opc-init.sh",
-      "echo 'su root /etc/opc-compute/opc-init.sh' >> /etc/rc.d/rc.local"
+      "echo 'su root /etc/opc-compute/opc-init.sh' >> /etc/rc.d/rc.local",
+      "chmod +x /etc/rc.d/rc.local",
+      "systemctl enable NetworkManager-wait-online.service"
     ],
     "only": ["qemu"]
   },
   {
     "type": "shell",
     "scripts": [
+      "scripts/ol7_xenmodules.sh",
       "scripts/rhel_7_x_network.sh",
       "scripts/compact.sh"
     ],

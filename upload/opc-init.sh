@@ -35,3 +35,6 @@ fi
 
 chown -R opc:opc /home/opc/.ssh
 chmod 0700 /home/opc/.ssh
+chmod 0600 /home/opc/.ssh/authorized_keys
+
+restorecon -R -v /home/opc/.ssh

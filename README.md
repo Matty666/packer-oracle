@@ -1,7 +1,10 @@
 #Packer templates for Oracle Linux
 
-With this you make your own OEL image/machine which you can use with vagrant ( it can work with Virtualbox and Vmware)
-but also you can generate the same image/machine for the OPC Oracle public cloud.
+With this you make your own OEL 6.6, 6.7 or 7.2 image/machine which you can use with vagrant ( it can work with Virtualbox and Vmware)
+but also you can generate the same image/machine for Oracle public cloud (OPC)
+
+##Contributions
+Big thanks to Lucas de Souza Reis Gomes for all the help on OEL7 on OPC
 
 ##OPC
 For OPC you should use Qemu emulator and this will make
@@ -45,7 +48,7 @@ For OEL7.2 with UEK4 Choose one
 - packer build -only=virtualbox-iso oracle-linux-7.2-x86_64.json
 - packer build -only=vmware-iso oracle-linux-7.2-x86_64.json
 
-Not supported on OPC
+For OEL7.2 for OPC
 - packer build -only=qemu oracle-linux-7.2-x86_64.json
 
 ##Qemu installation for mac osx
