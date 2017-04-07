@@ -3,3 +3,7 @@ packer_cache
 *.vdi
 *.vmdk
 *.ovf
+.vagrant
+packer
+
+*.iso

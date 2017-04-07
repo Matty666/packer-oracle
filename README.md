@@ -21,7 +21,7 @@ Follow the Oracle Cloud docs for uploading the image and to associate it. After 
 For now qemu is a bit slow ( can take a few hours ) because I cannot use the kvm accelerator on my mac. It only works fast on linux host or vm)
 
 ##Software
-Download [Packer](http://packer.io) (tested with Packer version 0.8.6)
+Download [Packer](http://packer.io) (tested with Packer version 1.0.0)
 
 ##How to build a box, image
 - Download OEL6.6 from edelivery
@@ -74,18 +74,13 @@ vagrant ssh
 sudo apt-get install qemu-kvm qemu virt-manager virt-viewer libvirt-bin
 egrep -c '(vmx|svm)' /proc/cpuinfo
 kvm-ok
-cd /vagrant
-sudo apt-get install git
-git clone https://github.com/biemond/packer-oracle.git
-sudo apt-get install unzip
-unzip packer_0.10.0_linux_amd64.zip
 ```
 
-For OEL 7
+For OEL/CentOS 7
 ```bash
 vagrant ssh
 sudo -i
-yum -y install qemu-kvm libvirt virt-install bridge-utils
+yum -y install qemu-kvm libvirt virt-install bridge-utils vnc
 egrep -c '(vmx|svm)' /proc/cpuinfo
 lsmod | grep kvm
 ```
@@ -99,8 +94,13 @@ Update OEL 6 qemu config
 - For RHEL7 add "qemu_binary" : "/usr/libexec/qemu-kvm" to the Qemu packer definition
 
 ```bash
-cd packer-oracle/
-sudo /vagrant/packer build -only=qemu oracle-linux-6.6-x86_64.json
+wget https://releases.hashicorp.com/packer/1.0.0/packer_1.0.0_linux_amd64.zip
+unzip packer_1.0.0_linux_amd64.zip
+rm packer_1.0.0_linux_amd64.zip
+sudo /vagrant/packer build -only=qemu oracle-linux-6.7-x86_64.json
+vncviewer -Shared 127.0.0.1:5999
 ```
+
+
 
 - move build output file to /vagrant and you can use it
