@@ -44,6 +44,14 @@ For OEL6.7 with UEK4 Choose one
 For OEL6.7 with UEK3 for the OPC (UEK4 does not work, probably need to install the right Xen drivers)
 - packer build -only=qemu oracle-linux-6.7-x86_64.json
 
+For OEL6.9 with UEK4 Choose one
+- packer build -only=virtualbox-iso oracle-linux-6.9-x86_64.json
+- packer build -only=vmware-iso oracle-linux-6.9-x86_64.json
+
+For OEL6.9 with UEK3 for the OPC (UEK4 does not work, probably need to install the right Xen drivers)
+- packer build -only=qemu oracle-linux-6.9-x86_64.json
+
+
 For OEL7.2 with UEK4 Choose one
 - packer build -only=virtualbox-iso oracle-linux-7.2-x86_64.json
 - packer build -only=vmware-iso oracle-linux-7.2-x86_64.json
@@ -97,7 +105,7 @@ Update OEL 6 qemu config
 wget https://releases.hashicorp.com/packer/1.0.0/packer_1.0.0_linux_amd64.zip
 unzip packer_1.0.0_linux_amd64.zip
 rm packer_1.0.0_linux_amd64.zip
-sudo /vagrant/packer build -only=qemu oracle-linux-6.7-x86_64.json
+sudo /vagrant/packer build -only=qemu oracle-linux-6.9-x86_64.json
 vncviewer -Shared 127.0.0.1:5999
 ```
 
