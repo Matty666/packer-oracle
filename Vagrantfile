@@ -12,9 +12,10 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "boxcutter/centos68-desktop"
+  config.vm.box = "oel7_8"
+  #config.vm.provider = "hyperv"
 
-  config.vm.synced_folder ".", "/vagrant"
+  #config.vm.synced_folder ".", "/vagrant"
 
   config.vm.provider :vmware_fusion do |vb|
       vb.vmx["numvcpus"] = "2"
@@ -30,6 +31,11 @@ Vagrant.configure("2") do |config|
       vb.gui = true
   end
 
+
+  config.vm.provider :hyperv do |hv|
+    hv.memory = 2048
+    hv.cpus = 2
+  end
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
